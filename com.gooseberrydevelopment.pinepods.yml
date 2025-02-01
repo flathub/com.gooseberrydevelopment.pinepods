@@ -17,13 +17,13 @@ modules:
     buildsystem: simple
     sources:
       - type: file
-        url: https://github.com/madeofpendletonwool/PinePods/releases/download/0.7.1/Pinepods_0.7.1_amd64.deb
-        sha256: e17dfad78f8a3e88b7beab9a103d34270e25de527db375a4a2d5e248888c8c6a
+        url: https://github.com/madeofpendletonwool/PinePods/releases/download/0.7.3/Pinepods_0.7.3_amd64.deb
+        sha256: 6eafbf0886694d9c65842a2177f75e80735ef536316e72f31760d567d640292a
         only-arches: [x86_64]
         dest-filename: pinepods.deb
       - type: file
-        url: https://github.com/madeofpendletonwool/PinePods/releases/download/0.7.1/Pinepods_0.7.1_arm64.deb
-        sha256: a14e15df40b8d2646ed118f041ee4d2220cc5b324d0dc533a405ac762bbc5ecb
+        url: https://github.com/madeofpendletonwool/PinePods/releases/download/0.7.3/Pinepods_0.7.3_arm64.deb
+        sha256: c84ed166279aa1158b5ec70ba6cb0c1f821986c23c4842defd07e36caeceac0e
         only-arches: [aarch64]
         dest-filename: pinepods.deb
     build-commands:
