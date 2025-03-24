@@ -1,6 +1,6 @@
 id: com.gooseberrydevelopment.pinepods
 runtime: org.gnome.Platform
-runtime-version: "47"
+runtime-version: "48"
 sdk: org.gnome.Sdk
 command: app
 finish-args:
@@ -17,18 +17,32 @@ modules:
     buildsystem: simple
     sources:
       - type: file
-        url: https://github.com/madeofpendletonwool/PinePods/releases/download/0.7.3/Pinepods_0.7.3_amd64.deb
-        sha256: 6eafbf0886694d9c65842a2177f75e80735ef536316e72f31760d567d640292a
+        url: https://github.com/madeofpendletonwool/PinePods/releases/download/0.7.7/Pinepods_0.7.7_amd64.deb
+        sha256: 52d69d7ca03eee69ceac689343df21230cc9a1c21185cbe10a967a30a742d620
         only-arches: [x86_64]
         dest-filename: pinepods.deb
       - type: file
-        url: https://github.com/madeofpendletonwool/PinePods/releases/download/0.7.3/Pinepods_0.7.3_arm64.deb
-        sha256: c84ed166279aa1158b5ec70ba6cb0c1f821986c23c4842defd07e36caeceac0e
+        url: https://github.com/madeofpendletonwool/PinePods/releases/download/0.7.7/Pinepods_0.7.7_arm64.deb
+        sha256: 2f307c09bf5146ea5708d110c2360746ff81f42acef40f3a4358087259f115e5
         only-arches: [aarch64]
         dest-filename: pinepods.deb
     build-commands:
       - ar -x pinepods.deb
-      - tar -xf data.tar.gz
+      - |
+        # Extract the data archive using the correct format
+        if [ -f data.tar.xz ]; then
+          tar -xf data.tar.xz
+        elif [ -f data.tar.zst ]; then
+          tar --use-compress-program=unzstd -xf data.tar.zst
+        elif [ -f data.tar.bz2 ]; then
+          tar -xf data.tar.bz2
+        elif [ -f data.tar.gz ]; then
+          tar -xf data.tar.gz
+        else
+          echo "Could not find data archive in .deb package"
+          ls -la
+          exit 1
+        fi
       - desktop-file-edit --set-icon=com.gooseberrydevelopment.pinepods --set-key=Exec --set-value=app usr/share/applications/Pinepods.desktop
       - mkdir -p /app/bin
       - cp -r usr/bin/* /app/bin
